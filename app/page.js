@@ -1,10 +1,16 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "../components/ui/button"
-import { Badge } from "../components/ui/badge"
-import { Input } from "../components/ui/input"
-import { useState } from "react"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
+import { Input } from "../components/ui/input";
+import { useState } from "react";
 import {
   FaKey,
   FaQrcode,
@@ -22,7 +28,8 @@ import {
   FaCompress,
   FaEye,
   FaSearch,
-} from "react-icons/fa"
+} from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const tools = [
   {
@@ -90,14 +97,6 @@ const tools = [
     color: "bg-teal-500",
   },
   {
-    id: "text-counter",
-    title: "Text Counter",
-    description: "Count words, characters, and lines",
-    icon: FaFileAlt,
-    category: "Productivity",
-    color: "bg-emerald-500",
-  },
-  {
     id: "json-formatter",
     title: "JSON Formatter",
     description: "Format and validate JSON data",
@@ -105,35 +104,35 @@ const tools = [
     category: "Developer",
     color: "bg-violet-500",
   },
-  {
-    id: "color-picker",
-    title: "Color Picker",
-    description: "Pick colors from images or generate palettes",
-    icon: FaEye,
-    category: "Design",
-    color: "bg-rose-500",
-  },
-]
+];
 
-const categories = ["All", "Utility", "Design", "Security", "Developer", "Productivity", "Fun"]
+const categories = [
+  "All",
+  "Utility",
+  "Design",
+  "Security",
+  "Developer",
+  "Productivity",
+  "Fun",
+];
 
 export default function HomePage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const router = useRouter();
 
   const filteredTools = tools.filter((tool) => {
     const matchesSearch =
       tool.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tool.description.toLowerCase().includes(searchTerm.toLowerCase())
-    const matchesCategory = selectedCategory === "All" || tool.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+      tool.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || tool.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   const handleToolClick = (toolId) => {
-    // For now, just log the tool ID. In a real app, you'd navigate to the tool page
-    console.log(`Navigate to tool: ${toolId}`)
-    alert(`${toolId} tool would open here!`)
-  }
+    router.push(`/${toolId}`);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -141,10 +140,12 @@ export default function HomePage() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">One-Minute Apps Collection</h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
+              One-Minute Apps Collection
+            </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Quick, simple tools for everyday tasks. Each app is designed to solve a specific problem in under a
-              minute.
+              Quick, simple tools for everyday tasks. Each app is designed to
+              solve a specific problem in under a minute.
             </p>
           </div>
         </div>
@@ -180,7 +181,7 @@ export default function HomePage() {
         {/* Tools Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredTools.map((tool) => {
-            const IconComponent = tool.icon
+            const IconComponent = tool.icon;
             return (
               <Card
                 key={tool.id}
@@ -198,27 +199,36 @@ export default function HomePage() {
                       {tool.category}
                     </Badge>
                   </div>
-                  <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">{tool.title}</CardTitle>
+                  <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
+                    {tool.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-sm text-gray-600 mb-4">{tool.description}</CardDescription>
-                  <Button size="sm" className="w-full group-hover:bg-blue-600 transition-colors">
+                  <CardDescription className="text-sm text-gray-600 mb-4">
+                    {tool.description}
+                  </CardDescription>
+                  <Button
+                    size="sm"
+                    className="w-full group-hover:bg-blue-600 transition-colors"
+                  >
                     Open Tool
                   </Button>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
 
         {filteredTools.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No tools found matching your criteria.</p>
+            <p className="text-gray-500 text-lg">
+              No tools found matching your criteria.
+            </p>
             <Button
               variant="outline"
               onClick={() => {
-                setSearchTerm("")
-                setSelectedCategory("All")
+                setSearchTerm("");
+                setSelectedCategory("All");
               }}
               className="mt-4"
             >
@@ -233,10 +243,12 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center text-gray-600">
             <p className="mb-2">One-Minute Apps Collection</p>
-            <p className="text-sm">Simple tools for complex problems. Built with ❤️ for productivity.</p>
+            <p className="text-sm">
+              Simple tools for complex problems. Built with ❤️ for productivity.
+            </p>
           </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }
