@@ -8,9 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+
 function ComingSoonPage() {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-background text-center">
+      <header className="absolute top-4 right-4">
+        <ThemeToggle />
+      </header>
       <Card className="max-w-md">
         <CardHeader>
           <CardTitle>Coming Soon</CardTitle>

@@ -30,6 +30,7 @@ import {
   FaSearch,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const tools = [
   {
@@ -137,16 +138,21 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card/80 backdrop-blur-sm shadow-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              One-Minute Apps Collection
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Quick, simple tools for everyday tasks. Each app is designed to
-              solve a specific problem in under a minute.
-            </p>
+          <div className="flex items-center justify-between">
+            <div className="text-center flex-1">
+              <h1 className="text-4xl font-bold text-foreground mb-2">
+                One-Minute Apps Collection
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Quick, simple tools for everyday tasks. Each app is designed to
+                solve a specific problem in under a minute.
+              </p>
+            </div>
+            <div className="ml-4">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
